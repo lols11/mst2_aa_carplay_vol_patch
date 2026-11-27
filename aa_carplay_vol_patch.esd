@@ -1,0 +1,49 @@
+screen aa_carplay_vol_patch MIBSTD2_Toolbox
+
+keyValue
+    value String sys 0x00000000 0
+    label "Version 1.1"
+    poll 0
+
+keyValue
+    value String sys 0x00000000 0
+    label "Free for all by lols11"
+    poll 0
+
+keyValue
+    value String sys 0x00000000 0
+    label "Install AA backend, reboot, then adjust AA/CarPlay music level."
+    poll 0
+
+slider
+    value per 0x01a900d8 84
+    label "AA music level (-4 factory / 0 nominal)"
+    poll 1000
+    limits absolute -13 13
+
+slider
+    value per 0x01a900d8 85
+    label "CarPlay music level (-4 factory / 0 nominal)"
+    poll 1000
+    limits absolute -13 13
+
+keyValue
+    value String sys 0x00000000 0
+    label "AA and CarPlay levels save directly to the boot audio table."
+    poll 0
+
+script
+    value sys 1 0x0100 "/tsd/etc/persistence/esd/scripts/aa_carplay_vol_patch_status.sh"
+    label "Backend status"
+
+script
+    value sys 1 0x0100 "/tsd/etc/persistence/esd/scripts/aa_carplay_vol_patch_install.sh"
+    label "Install AA backend"
+
+script
+    value sys 1 0x0100 "/tsd/etc/persistence/esd/scripts/aa_carplay_vol_patch_uninstall.sh"
+    label "Restore original backend"
+
+script
+    value sys 1 0x0100 "/tsd/etc/persistence/esd/scripts/util_reboot.sh"
+    label "Reboot unit"
